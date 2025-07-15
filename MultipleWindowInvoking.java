@@ -1,8 +1,14 @@
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -10,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class MultipleWindowInvoking {
 
 	
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 	
 
 		System.setProperty("webdriver.chrome.driver", "D:/ChromeDriver2025/chromedriver/chromedriver.exe");
@@ -51,9 +57,20 @@ public class MultipleWindowInvoking {
 		String courseName = driver.findElements(By.cssSelector("a[href*='https://courses.rahulshettyacademy.com/p']")).get(5).getText();
 		
 	    driver.switchTo().window(parentTab);
+	   
+	    WebElement nameElenemt = driver.findElement(By.name("name"));
+	    nameElenemt.sendKeys(courseName);
+	   
+	   
+	    //particular webelement ss 
 	    
-	    driver.findElement(By.name("name")).sendKeys(courseName);
+	    //File file = nameElenemt.getScreenshotAs(OutputType.FILE);
+	    //FileUtils.copyFile(file, new File("C:/selenium ss/15-07/namefield1.png"));
 	    
+	    
+	    // get height andf widght of webelement 
+	    System.out.println(nameElenemt.getRect().getDimension().getHeight());
+	    System.out.println(nameElenemt.getRect().getDimension().getWidth());
 		
 		Thread.sleep(3000);
 		driver.quit();
